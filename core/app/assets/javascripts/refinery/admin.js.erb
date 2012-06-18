@@ -513,7 +513,7 @@ var link_dialog = {
         wym_href.value = url;
       }
       if ((wym_title = parent.document.getElementById('wym_title')) != null) {
-        wym_title.value = title;
+        wym_title.value = $('#title_text').val() || title;
       }
       if ((wym_target = parent.document.getElementById('wym_target')) != null) {
         wym_target.value = target || "";

@@ -10,6 +10,8 @@ en:
           link_to_this_page: Link to this page
         link_to:
           insert: Insert
+          title: Title
+          title_help: Give a custom title that will be shown when the mouse hover over the link.
           your_page:
             tab_name: Your page
           web_address:
