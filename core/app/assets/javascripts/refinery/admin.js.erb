@@ -719,10 +719,10 @@ var image_dialog = {
           wym_src.value = image_url;
         }
         if ((wym_title = parent.document.getElementById('wym_title')) != null) {
-          wym_title.value = $(img).attr('title');
+          wym_title.value = ( $('#image_title').val() || $(img).attr('title') );
         }
         if ((wym_alt = parent.document.getElementById('wym_alt')) != null) {
-          wym_alt.value = $(img).attr('alt');
+          wym_alt.value = ( $('#image_alt').val() || $(img).attr('alt') );
         }
         if ((wym_size = parent.document.getElementById('wym_size')) != null
             && typeof(geometry) != 'undefined') {

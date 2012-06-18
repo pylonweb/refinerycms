@@ -48,6 +48,22 @@
         <% end -%>
       </ul>
     </div>
+		<div id='existing_image_attributes' class='clearfix'>
+      <div class='field'>
+				<span class='label_with_help'>
+	        <%= label_tag :image_title, t('.custom_image_title') %>
+	        <%= refinery_help_tag t('.custom_image_title_help') %>
+	      </span>
+				<%= text_field_tag :image_title %>
+			</div>
+			<div class='field'>
+				<span class='label_with_help'>
+	        <%= label_tag :image_title, t('.custom_image_alt') %>
+	        <%= refinery_help_tag t('.custom_image_alt_help') %>
+	      </span>
+				<%= text_field_tag :image_alt %>
+			</div>
+    </div>
   <% end %>
 
   <%= render '/refinery/admin/form_actions', :f => nil,

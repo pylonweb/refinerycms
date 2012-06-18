@@ -27,6 +27,10 @@ da:
         grid_view:
           view_live_html: Vis billede<br/><em>(åbner i nyt vindue)</em>
         existing_image:
+          custom_image_alt: Brugerdefineret billed alternativ
+          custom_image_alt_help: "Angiv en alternativ beskrivelse, hvis du ikke vil bruge standarden. Beskrivelse vil blive vist, hvis brugeren ikke kan vise billedet"
+          custom_image_title: Brugerdefineret billed titel
+          custom_image_title_help: "Angiv en brugerdefineret titel, hvis du ikke vil bruge standarden. Titlen  vises når musen holdes over billedet."
           button_text: Indsæt
           resize_image: Skalér billedet?
           size: Størrelse
