@@ -770,6 +770,14 @@ var image_dialog = {
         image_dialog.set_image($('#existing_image_area_content ul li.selected img'));
       }
     });
+    
+    $('#image_title').change(function(){
+      image_dialog.set_image($('#existing_image_area_content ul li.selected img'));
+    });
+    
+    $('#image_alt').change(function(){
+      image_dialog.set_image($('#existing_image_area_content ul li.selected img'));
+    });
 
     image_area = $('#existing_image_area').not('#wym_iframe_body #existing_image_area');
     image_area.find('.form-actions input#submit_button').click($.proxy(function(e) {
