@@ -20,6 +20,8 @@ module Refinery
     attr_accessible :id, :image, :image_size
 
     delegate :size, :mime_type, :url, :width, :height, :to => :image
+    
+    has_many :imageables
 
     class << self
       # How many images per page should be displayed?

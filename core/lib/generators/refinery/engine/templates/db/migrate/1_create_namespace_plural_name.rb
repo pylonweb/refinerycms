@@ -3,7 +3,7 @@ class Create<%= namespacing %><%= class_name.pluralize %> < ActiveRecord::Migrat
   def up
     create_table :refinery_<%= "#{namespacing.underscore}_" if table_name != namespacing.underscore.pluralize -%><%= table_name %> do |t|
 <%
-  attributes.each do |attribute|
+  attributes.reject{|a| has_many_relations.include?(a)}.each do |attribute|
     # turn image or resource into what it was supposed to be which is an integer reference to an image or resource.
     if attribute.type.to_s =~ /^(image|resource)$/
       attribute.type = 'integer'

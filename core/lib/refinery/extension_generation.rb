@@ -8,6 +8,7 @@ module Refinery
         class_option :namespace, :type => :string, :default => nil, :banner => 'NAMESPACE', :required => false
         class_option :extension, :type => :string, :default => nil, :banner => 'ENGINE', :required => false
         class_option :i18n, :type => :array, :default => [], :required => false, :banner => "field field", :desc => 'Indicates generated fields'
+        class_option :has_many, :type => :array, :default => [], :required => false, :banner => "field field", :desc => 'Indicates generated fields'
 
         remove_class_option :skip_namespace
 
@@ -57,6 +58,22 @@ module Refinery
 
         def localized_attributes
           @localized_attributes ||= attributes.select{|a| options[:i18n].include?(a.name)}
+        end
+        
+        def has_many_relations
+          @has_many_relations ||= attributes.select{|a| options[:has_many].include?(a.name)}
+        end
+        
+        def has_many?
+          has_many_relations.any?
+        end
+        
+        def has_many_resources?
+          has_many_relations.select{|a| a.type.to_s == 'resource'}.any?
+        end
+        
+        def has_many_images?
+          has_many_relations.select{|a| a.type.to_s == 'image'}.any?
         end
 
         def attributes_for_translation_table

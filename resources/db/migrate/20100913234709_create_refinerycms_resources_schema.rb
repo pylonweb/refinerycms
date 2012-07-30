@@ -9,5 +9,11 @@ class CreateRefinerycmsResourcesSchema < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    create_table :refinery_resourceable do |t|
+      t.integer :resource_id
+      t.integer :resourceable_id
+      t.string  :resourceable_type
+    end
   end
 end

@@ -11,5 +11,11 @@ class CreateRefinerycmsImagesSchema < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    create_table :refinery_imageables do |t|
+      t.integer :image_id
+      t.integer :imageable_id
+      t.string  :imageable_type
+    end
   end
 end

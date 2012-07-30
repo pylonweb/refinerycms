@@ -17,6 +17,8 @@ module Refinery
     acts_as_indexed :fields => [:file_name, :title, :type_of_content]
 
     delegate :ext, :size, :mime_type, :url, :to => :file
+    
+    has_many :resourceables
 
     # used for searching
     def type_of_content

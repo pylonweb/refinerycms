@@ -26,15 +26,27 @@ module Refinery
         "Override def title in vendor/extensions/<%= namespacing.underscore %>/app/models/refinery/<%= namespacing.underscore %>/<%= singular_name %>.rb"
       end
 <% end -%>
-<% attributes.select{|a| a.type.to_s == 'image'}.uniq.each do |a| -%>
+<% attributes.select{|a| a.type.to_s == 'image' && has_many_relations.exclude?(a) }.uniq.each do |a| -%>
 
-      belongs_to :<%= a.name.gsub("_id", "") -%>, :class_name => '::Refinery::Image'
+      belongs_to :<%= a.name.gsub("_id", "") -%>, :class_name => '::Refinery::Image' 
 <% end -%>
-<% attributes.select{|a| a.type.to_s == 'resource'}.uniq.each do |a| -%>
+<% attributes.select{|a| a.type.to_s == 'resource' && has_many_relations.exclude?(a) }.uniq.each do |a| -%>
 
       belongs_to :<%= a.name.gsub("_id", "") %>, :class_name => '::Refinery::Resource'
-
 <% end -%>
+<% if has_many_images? %>
+      has_many :imageables, :as => :imageable
+<% end %>
+<% has_many_relations.select{|a| a.type.to_s == 'image' }.uniq.each do |a| -%>
+      has_many :<%= a.name.gsub("_id", "").pluralize %>, :class_name => '::Refinery::Image', :through => :imageables
+<% end -%>
+<% if has_many_resources? %>
+      has_many :resourceables, :as => :resourceable
+<% end %>
+<% has_many_relations.select{|a| a.type.to_s == 'resource' }.uniq.each do |a| -%>
+      has_many :<%= a.name.gsub("_id", "").pluralize %>, :class_name => '::Refinery::Resource', :through => :resourceables
+<% end -%>
+
     end
   end
 end

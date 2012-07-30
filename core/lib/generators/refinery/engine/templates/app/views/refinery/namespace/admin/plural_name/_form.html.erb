@@ -10,7 +10,7 @@
   <%%= render "locale_picker",
               :current_locale => Thread.current[:globalize_locale] if Refinery.i18n_enabled? %>
 <% end %>
-  <% attributes.each_with_index do |attribute, index| %>
+  <% attributes.reject{|a| has_many_relations.include?(a)}.each_with_index do |attribute, index| %>
 <% if attribute.field_type.to_s != 'text_area' -%>
   <div class='field'>
     <%%= f.label :<%= attribute.name %> -%>
@@ -30,7 +30,7 @@
   <div class='field'>
     <div id='page-tabs' class='clearfix ui-tabs ui-widget ui-widget-content ui-corner-all'>
       <ul id='page_parts'>
-        <%% <%= text_areas.map{|t| t.name.to_sym}.inspect -%>.each_with_index do |part, part_index| %>
+        <%% <%= text_areas.map{|t| t.name.to_sym}.concat(has_many_relations.map{|t| t.name.to_sym}).inspect -%>.each_with_index do |part, part_index| %>
           <li class='ui-state-default<%%= ' ui-state-active' if part_index == 0 %>'>
             <%%= link_to t("#{part}", :scope => "activerecord.attributes.refinery/<%= namespacing.underscore %>/<%= singular_name %>", :default => part.to_s.titleize), "##{part}" %>
           </li>
@@ -42,6 +42,24 @@
             <%%= f.text_area part, :rows => 20, :class => 'wymeditor widest' -%>
           </div>
         <%% end %>
+        <% has_many_relations.select{|a| a.type.to_s == 'image' }.each do |relation| %>
+          <div class='page_part' id='<%= relation.name %>'>
+            <%%= render '/refinery/admin/images_tab',
+                       :f => f,
+                       :field => :<%= "#{relation.name}_id".gsub("_id_id", "_id") %>,
+                       :image => @<%= singular_name %>.<%= relation.name.gsub("_id", "") %>,
+                       :toggle_image_display => false %>
+          </div>
+        <% end %>
+        <% has_many_relations.select{|a| a.type.to_s == 'resource' }.each do |relation| %>
+          <div class='page_part' id='<%= relation.name %>'>
+            <%%= render '/refinery/admin/resources_tab',
+                       :f => f,
+                       :field => :<%= "#{relation.name}_id".gsub("_id_id", "_id") %>,
+                       :image => @<%= singular_name %>.<%= relation.name.gsub("_id", "") %>,
+                       :toggle_image_display => false %>
+          </div>
+        <% end %>
       </div>
     </div>
 <% generated_text_areas = true -%>
