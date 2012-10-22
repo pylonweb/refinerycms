@@ -26,10 +26,7 @@
       <input type='hidden' name='selected_image' id='selected_image' />
       <div id='your_page_content' class='clearfix'>
         <div class='field'>
-          <span class='label_with_help'>
-            <label for='titel_text'><%= t('.title') %></label>
-            <%= refinery_help_tag t('.title_help') %>
-          </span>
+          <label for='titel_text'><%= t('.title') %></label>
           <%= text_field :page_title, :text %>
         </div>
         <div id='pages_list' class='pages_list'>
@@ -47,10 +44,7 @@
     <div id='web_address_area' <%= "style='display: none'" unless @web_address_area_selected %> class='dialog_area'>
       <div id='web_address_content'>
         <div class='field'>
-          <span class='label_with_help'>
-            <label for='titel_text'><%= t('.title') %></label>
-            <%= refinery_help_tag t('.title_help') %>
-          </span>
+          <label for='titel_text'><%= t('.title') %></label>
           <%= text_field :web_title, :text %>
         </div>
         <label for='web_address_text'><%= t('location', :scope => 'refinery.admin.pages_dialogs.link_to.web_address') %></label>
@@ -70,10 +64,7 @@
     <div id='email_address_area' <%= "style='display: none'" unless @email_address_area_selected %> class='dialog_area'>
       <div id='email_address_content'>
         <div class='field'>
-          <span class='label_with_help'>
-            <label for='titel_text'><%= t('.title') %></label>
-            <%= refinery_help_tag t('.title_help') %>
-          </span>
+          <label for='titel_text'><%= t('.title') %></label>
           <%= text_field :email_title, :text %>
         </div>
         <div class='field'>
@@ -110,10 +101,7 @@
     <% if ::Refinery::Plugins.registered.names.include?("refinery_files") and @resources.any? %>
       <div id="resource_file_area"<%= " style='display:none'" unless @resource_area_selected %> class="dialog_area">
         <div class='field'>
-          <span class='label_with_help'>
-            <label for='titel_text'><%= t('.title') %></label>
-            <%= refinery_help_tag t('.title_help') %>
-          </span>
+          <label for='titel_text'><%= t('.title') %></label>
           <%= text_field :resource_title, :text %>
         </div>
         <div id='resources_list' class='pages_list'>
