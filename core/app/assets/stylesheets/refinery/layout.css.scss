@@ -889,6 +889,7 @@ body.dialog form {
     }
   }
   #existing_image_size_area {
+    float: left;
     margin-top: 18px;
     ul {
       margin: 0px;
@@ -913,6 +914,10 @@ body.dialog form {
         }
       }
     }
+  }
+  #existing_image_attributes {
+    float: right;
+    margin-top: 18px;	
   }
   #existing_image_size_area {
     #image_dialog_size_0 a { height: 30px; width: 30px; line-height: 30px; margin-top: 10px }

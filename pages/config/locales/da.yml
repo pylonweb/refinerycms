@@ -10,6 +10,8 @@ da:
           link_to_this_page: Link til denne side
         link_to:
           insert: Indsæt
+          title: Titel
+          title_help: Angiv en brugerdefineret titel der bliver vist når musen holdes over linket.
           your_page:
             tab_name: Side
           web_address:

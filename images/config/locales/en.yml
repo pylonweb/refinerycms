@@ -27,6 +27,10 @@ en:
         grid_view:
           view_live_html: View this image <br/><em>Opens in a new window</em>
         existing_image:
+          custom_image_alt: Custom image alternative
+          custom_image_alt_help: "Give a custom alternative description, that will be showed if the user cannot view the image"
+          custom_image_title: Custom image title
+          custom_image_title_help: "Give a custom title, that will be showed as tooltip when holding the mouse over the image"
           button_text: Insert
           resize_image: Resize the image?
           size: Size

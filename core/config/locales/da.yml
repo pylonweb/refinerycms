@@ -1,5 +1,8 @@
 da:
   refinery:
+    js:
+      admin:
+        confirm_changes: Eventuelle ændringer, du har foretaget, vil blive tabt. Er du sikker på, at du vil fortsætte uden at gemme?
     plugins:
       refinery_core:
         title: Refinery

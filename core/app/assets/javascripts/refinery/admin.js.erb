@@ -452,26 +452,49 @@ var link_dialog = {
 
   //Same for resources tab
   page_tab: function(){
-    $('.link_list li').click(function(e){
-      e.preventDefault();
-
+    var update = function(obj, title){
       $('.link_list li.linked').removeClass('linked');
-      $(this).addClass('linked');
+      obj.addClass('linked');
 
-      var link = $(this).children('a.page_link').get(0);
+      var link = obj.children('a.page_link').get(0);
       var port = (window.location.port.length > 0 ? (":" + window.location.port) : "");
       var url = link.href<%= %q{.replace(window.location.protocol + "//" + window.location.hostname + port, "")} unless defined?(Refinery::Pages) && Refinery::Pages.absolute_page_links %>;
 
-      link_dialog.update_parent(url, link.rel.replace(/\ ?<em>.+?<\/em>/, ''));
+      title = title || link.rel.replace(/\ ?<em>.+?<\/em>/);
+      link_dialog.update_parent(url, title, '');
+    }
+    
+    $('#pages_list .link_list li').click(function(e){
+      e.preventDefault();
+
+      update($(this), $('#page_title_text').val());
+    });
+    
+    $('#resources_list .link_list li').click(function(e){
+      e.preventDefault();
+
+      update($(this), $('#resource_title_text').val());
+    });
+    
+    $('#page_title_text').change(function(){
+      alert("CHANGE page");
+      
+      update($('li.linked'), $('#page_title_text').val());
+    });
+    
+    $('#resource_title_text').change(function(){
+      alert("CHANGE resourece");
+      update($('li.linked'), $('#resource_title_text').val());
     });
   },
 
   web_tab: function(){
     link_tester.validate_url_textbox("#web_address_text", function(){});
-
-    $('#web_address_text, #web_address_target_blank').change(function(){
+    
+    $('#web_address_text, #web_address_target_blank, #web_title_text').change(function(){
+      title = $('#web_title_text').val() || $('#web_address_text').val();
       link_dialog.update_parent( $('#web_address_text').val(),
-                                 $('#web_address_text').val(),
+                                 title,
                                  $('#web_address_target_blank').get(0).checked ? "_blank" : ""
       );
     });
@@ -480,7 +503,7 @@ var link_dialog = {
   email_tab: function() {
     link_tester.validate_email_textbox("#email_address_text", function(){});
 
-    $('#email_address_text, #email_default_subject_text, #email_default_body_text').change(function(e){
+    $('#email_address_text, #email_default_subject_text, #email_default_body_text, #email_title_text').change(function(e){
       var default_subject = $('#email_default_subject_text').val(),
           default_body = $('#email_default_body_text').val(),
           recipient = $('#email_address_text').val();
@@ -501,7 +524,8 @@ var link_dialog = {
       for (var i = 0; i < recipient.length; i++) {
         hex_recipient += '%' + recipient.charCodeAt(i).toString(16);
       }
-      link_dialog.update_parent("mailto:" + hex_recipient + additional, recipient);
+      title = $('#email_title_text').val() || recipient;
+      link_dialog.update_parent("mailto:" + hex_recipient + additional, title);
     });
   },
 
@@ -717,10 +741,10 @@ var image_dialog = {
           wym_src.value = image_url;
         }
         if ((wym_title = parent.document.getElementById('wym_title')) != null) {
-          wym_title.value = $(img).attr('title');
+          wym_title.value = ( $('#image_title').val() || $(img).attr('title') );
         }
         if ((wym_alt = parent.document.getElementById('wym_alt')) != null) {
-          wym_alt.value = $(img).attr('alt');
+          wym_alt.value = ( $('#image_alt').val() || $(img).attr('alt') );
         }
         if ((wym_size = parent.document.getElementById('wym_size')) != null
             && typeof(geometry) != 'undefined') {
@@ -767,6 +791,14 @@ var image_dialog = {
         $('#existing_image_size_area ul li').removeClass('selected');
         image_dialog.set_image($('#existing_image_area_content ul li.selected img'));
       }
+    });
+    
+    $('#image_title').change(function(){
+      image_dialog.set_image($('#existing_image_area_content ul li.selected img'));
+    });
+    
+    $('#image_alt').change(function(){
+      image_dialog.set_image($('#existing_image_area_content ul li.selected img'));
     });
 
     image_area = $('#existing_image_area').not('#wym_iframe_body #existing_image_area');
